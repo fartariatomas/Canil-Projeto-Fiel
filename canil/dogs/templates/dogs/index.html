@@ -1,0 +1,35 @@
+{% extends 'dogs/base.html' %}
+{% block dogs_active %}active{% endblock %}
+
+{% block body %}
+<div class="dogs-container container-fluid">
+
+    <!-- Dogs -->
+    <div class="row">
+        {% if all_dogs %}
+            {% for dog in all_dogs %}
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+
+                        <!-- Album logo -->
+                        <a href="{% url 'dogs:detail' dog.id %}">
+                            <img src="{{ dog.photo.url }}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ dog.name }}</h2>
+                            <h4>{{ dog.sex }}</h4>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <p>There are no dogs in the shelter :-)</p>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
