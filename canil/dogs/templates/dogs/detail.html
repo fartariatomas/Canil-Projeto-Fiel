@@ -3,7 +3,7 @@
 {% block dogs_active%}active{% endblock %}
 
 {% block body %}
-    <div class="container-fluid dogs-container">
+    <div class="container-fluid photo-container">
 
         <div class="row">
             
@@ -11,10 +11,6 @@
             <div class="col-sm-4 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <a href="{% url 'dogs:detail' dog.id %}">
-                            <img src="{{ dog.photo.url }}" class="img-responsive">
-                        </a>
-
                         <h2>{{ dog.name }}</h2>
                         <h4>{{ dog.sex }}</h4>
                         <h4>{{ dog.colors }}</h4>
@@ -25,6 +21,14 @@
 
              <!-- Right Song Info -->
         <div class="col-sm-8 col-md-9">
+            <div class="col-sm-8 col-md-9">
+                <div class="panel panel-default">
+                    {% for photo in dog.photo_set.all %}
+                        <center><img src="{{ photo.image_file.large.url }}" class="img-responsive"></center>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 
     </div>
