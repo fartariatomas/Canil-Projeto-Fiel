@@ -25,5 +25,6 @@ class Photo(models.Model):
         'thumbnail': (200, 200, True),
     })
 
+
     def __str__(self):
         return self.album_name.name
