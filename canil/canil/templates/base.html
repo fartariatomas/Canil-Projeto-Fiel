@@ -21,28 +21,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'dogs:index' %}">Projeto Fiel </a>
+                <a class="navbar-brand" href="{% url 'homepage' %}">Projeto Fiel </a>
             </div>
 
             <!-- Items -->
             <div class="collapse navbar-collapse" id="topNavBar">
                 
                 <ul class="nav navbar-nav">
-                    <li class="">
+                    <li class="{% block dogs_active %}{% endblock %}">
                         <a href="{% url 'dogs:index' %}">
-                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp; Dogs
+                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp; FOCINHOBOOK
                         </a>
                     </li>
                 </ul>
-
-                <form class="navbar-form navbar-left " role
-                "search" method="get" action="#">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="q" value="">
-                    </div>
-                    <button type="submit" class="btn btn-default">Search</button>
-                </form>
-
             </div>
 
         </div>

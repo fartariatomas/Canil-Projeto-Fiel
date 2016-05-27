@@ -10,10 +10,6 @@ body{
     font-family: 'Satisfy', cursive;
 }
 
-.navbar-inner {
-    background: #2b2b2b;
-    background-image: none;
-    background-repeat: repeat-x;
-    border-color: none;
-    filter: none;
+.navbar {
+    background: #2973f0;
 }
