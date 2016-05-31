@@ -9,36 +9,65 @@
     {% if all_dogs %}
         {% for dog0, dog1 in all_dogs %}
             <div class="row">
-                <div class="col-xs-6">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="{% url 'dogs:detail' dog0.id %}">
-                                    <img src="{{ dog0.photo_set.last.image_file.medium.url }}" width="400px;">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class="media-heading">{{ dog0.name }}</h2>
-                            <h3>{{ dog0.name }}</h3>
-                            <h4>{{ dog0.sex }}</h4>
-                            <h4>Album has {{ dog0.photo_set.count }} photos.</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="{% url 'dogs:detail' dog1.id %}">
-                                    <img src="{{ dog1.photo_set.last.image_file.medium.url }}" width="400px;">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class="media-heading">{{ dog1.name }}</h2>
-                            <h3>{{ dog1.name }}</h3>
-                            <h4>{{ dog1.sex }}</h4>
-                            <h4>Album has {{ dog1.photo_set.count }} photos.</h4>
+                {% if forloop.counter0 == 0 %}
+                    <div class="col-xs-6">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="{% url 'dogs:detail' dog0.id %}">
+                                    <img src="{{ dog0.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h2 class="media-heading">{{ dog0.name }}</h2>
+                                <h4>{{ dog0.sex }}</h4>
+                                <h4>Album has {{ dog0.photo_set.count }} photos.</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-xs-6">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="{% url 'dogs:detail' dog1.id %}">
+                                        <img src="{{ dog1.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h2 class="media-heading">{{ dog1.name }}</h2>
+                                <h4>{{ dog1.sex }}</h4>
+                                <h4>Album has {{ dog1.photo_set.count }} photos.</h4>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="col-xs-6">
+                        <div class="media">
+                        <div class="media-body">
+                                <h2 class="media-heading">{{ dog0.name }}</h2>
+                                <h4>{{ dog0.sex }}</h4>
+                                <h4>Album has {{ dog0.photo_set.count }} photos.</h4>
+                            </div>
+                            <div class="media-right">
+                                <a href="{% url 'dogs:detail' dog0.id %}">
+                                    <img src="{{ dog0.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="media">
+                            <div class="media-body">
+                                <h2 class="media-heading">{{ dog1.name }}</h2>
+                                <h4>{{ dog1.sex }}</h4>
+                                <h4>Album has {{ dog1.photo_set.count }} photos.</h4>
+                            </div>
+                            <div class="media-right">
+                                <a href="{% url 'dogs:detail' dog1.id %}">
+                                        <img src="{{ dog1.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
             </div>
     {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
