@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}FocinhoBook{% endblock %}
+{% block dogs_active %}active{% endblock %}
+
+{% block body %}
+<div class="dogs-container container-fluid">
+
+    <!-- Dogs -->
+    <div class="row">
+        {% if all_dogs %}
+            {% for dog in all_dogs %}
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+
+                        <!-- Album logo -->
+                        
+                        <a href="{% url 'dogs:detail' dog.id %}">
+                            <center><img src="{{ dog.photo_set.last.image_file.thumbnail.url }}" class="img-responsive" align="middle"></center>
+                        </a>
+                        <div class="caption">
+                            <h2>{{ dog.name }}</h2>
+                            <h4>{{ dog.sex }}</h4>
+                            <h4>Album with {{ dog.photo_set.count }} photos.</h4>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <p>There are no dogs in the shelter :-)</p>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

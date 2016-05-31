@@ -22,6 +22,7 @@ class Photo(models.Model):
     album_name = models.ForeignKey(Dog, on_delete=models.CASCADE)
     image_file = StdImageField(blank=True, variations={
         'large': (2000, 1800),
+        'medium': (1000, 900, True),
         'thumbnail': (200, 200, True),
     })
 

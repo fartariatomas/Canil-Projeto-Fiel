@@ -7,7 +7,11 @@ class IndexView(generic.ListView):
     context_object_name = 'all_dogs'
 
     def get_queryset(self):
-        return Dog.objects.all()
+        list_dogs = Dog.objects.all()
+        if len(list_dogs)%2!=0:
+            list_dogs.append(None)
+        list_dogs_in_pairs = [[list_dogs[x],list_dogs[x+1]] for x in range(0,len(list_dogs),2)]
+        return list_dogs_in_pairs
 
 
 class DetailView(generic.DetailView):
