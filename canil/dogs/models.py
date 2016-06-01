@@ -1,6 +1,7 @@
 from django.db import models
-from image_cropping import ImageRatioField
 from django.core.urlresolvers import reverse
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 class Dog(models.Model):
@@ -20,8 +21,11 @@ class Dog(models.Model):
 
 class Photo(models.Model):
     album_name = models.ForeignKey(Dog, on_delete=models.CASCADE)
-    image_file = models.ImageField(blank=True, null=True)
-    cropping = ImageRatioField('image_file', '430x360')
+    photo_img = models.ImageField(null=True, blank=True)
+    photo_img_thumbnail = ImageSpecField(source='photo_img',
+                                      processors=[ResizeToFill(400, 300)],
+                                      format='JPEG',
+                                      options={'quality': 60})
 
     def __str__(self):
         return self.album_name.name

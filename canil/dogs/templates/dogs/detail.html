@@ -24,7 +24,7 @@
             <div class="col-sm-8 col-md-9">
                 <div class="panel panel-default">
                     {% for photo in dog.photo_set.all %}
-                        <center><img src="{{ photo.image_file.large.url }}" class="img-responsive"></center>
+                        <center><img src="{{ photo.photo_img.url }}" class="img-responsive"></center>
                         <br>
                     {% endfor %}
                 </div>
