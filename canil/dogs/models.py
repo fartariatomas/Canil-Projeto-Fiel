@@ -1,5 +1,5 @@
 from django.db import models
-from stdimage.models import StdImageField
+from image_cropping import ImageRatioField
 from django.core.urlresolvers import reverse
 
 
@@ -20,12 +20,8 @@ class Dog(models.Model):
 
 class Photo(models.Model):
     album_name = models.ForeignKey(Dog, on_delete=models.CASCADE)
-    image_file = StdImageField(blank=True, variations={
-        'large': (2000, 1800),
-        'medium': (1000, 900, True),
-        'thumbnail': (200, 200, True),
-    })
-
+    image_file = models.ImageField(blank=True, null=True)
+    cropping = ImageRatioField('image_file', '430x360')
 
     def __str__(self):
         return self.album_name.name

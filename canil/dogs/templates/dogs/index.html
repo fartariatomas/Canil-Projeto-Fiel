@@ -14,7 +14,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="{% url 'dogs:detail' dog0.id %}">
-                                    <img src="{{ dog0.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                    <img src={% cropped_thumbnail dog0.photo_set.last.image_file.url "cropping" scale=0.5 %}" id="wall_img">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -28,7 +28,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="{% url 'dogs:detail' dog1.id %}">
-                                        <img src="{{ dog1.photo_set.last.image_file.medium.url }}" id="wall_img">
+                                        <img src="{{ dog1.photo_set.last.image_file.url }}" id="wall_img">
                                 </a>
                             </div>
                             <div class="media-body">

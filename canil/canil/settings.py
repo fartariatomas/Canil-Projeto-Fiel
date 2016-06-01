@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'canil',
     'dogs',
     'stdimage',
+    'easy_thumbnails',
+    'image_cropping',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -125,3 +127,12 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Necessary to edit imges later to have specific formats
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+IMAGE_CROPPING_SIZE_WARNING = True
+# size is "width x height"
+IMAGE_CROPPING_THUMB_SIZE = (300, 300)

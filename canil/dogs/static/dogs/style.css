@@ -21,5 +21,5 @@ body{
 #wall_img{
     width: 180px;
     height: 120px;
-    object-fit: scale-down;
+    object-fit: fill;
 }
