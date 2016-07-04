@@ -20,3 +20,4 @@ OTHER NICE THINGS TO IMPLEMENT
 - login account (multiple or single?) just to volunteers so they can add photos of dogs
 - routine to take user uploaded images and upload them to shelter's facebook/instagram/imgur repo and store them there and link to them there so they don't overload server. also see best way to show thumbnails without having to store smaller image
 - get access to the municipal dog shelter database to get their data from there so there is no need to duplicate data (might be hard but its talkable)
+- form to add email to mailing list that automatically shoots an email with the weekly news (dogs/cats in and out and other shelter related news)
