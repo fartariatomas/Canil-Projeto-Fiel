@@ -13,8 +13,12 @@
                     <div class="panel-body">
                         <h2>{{ dog.name }}</h2>
                         <h4>{{ dog.sex }}</h4>
-                        <h4>{{ dog.colors }}</h4>
-                        <h4>{{ dog.day_in }}</h4>
+                        {% if dog.mixed_race %}
+                            <h4> Undefined race</h4>
+                        {% else %}
+                            <h4> Race is {{ dog.race }}</h4>
+                        {% endif %}
+                        <h4>This {{ dog.size }} dog has {{ dog.colour }} {{ dog.hair }} hair and a {{ dog.tail }} tail.</h4>
                     </div>
                 </div>
             </div>

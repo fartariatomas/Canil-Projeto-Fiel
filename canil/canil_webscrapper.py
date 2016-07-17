@@ -80,33 +80,36 @@ def download_animals_from_website():
     xhtml = f.read().decode('utf-8')
     p = HTMLTableParser()
     p.feed(xhtml)
-    return p.tables[1][1:]
+    return p.tables[1][1:-1]
 
 
-def list_to_animals(animals_list):
-
+def list_to_dict(animals_list):
+    animals_clean_list = []
     for animal in animals_list:
-        pass
+        mixed_race = 0 if animal[4] == '' else 1
+        gender = 'M' if animal[5] == 'M' else 'F'
+        animals_clean_list.append((animal[0], animal[1].lower(), animal[3].partition(' / ')[2].lower(), mixed_race, gender, animal[
+                                  6].partition(' / ')[2].lower(), animal[7].partition(' / ')[2].lower(), animal[8].partition(' / ')[2].lower(), animal[9].partition(' / ')[2].lower()))
+    return animals_clean_list
 
 
-def list_to_db():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    db_location = os.path.join(BASE_DIR, 'db.sqlite3')
+def list_to_db(animals_clean_list):
+
     conn = sqlite3.connect('db.sqlite3')
-    with conn:
-        cur = conn.cursor()    
-        cur.execute("SELECT * FROM dogs_dog")
-        
-        rows = cur.fetchall()
-
-        for row in rows:
-            print(row)
+    cursor = conn.cursor()
+    for animal in animals_clean_list:
+        cursor.execute("SELECT * FROM dogs_dog WHERE name=?", [(animal[0])])
+        if cursor.fetchone():
+            print('dog with the same name already exists')
+        else:
+            cursor.execute("INSERT INTO dogs_dog (name, number_register, race, mixed_race, sex, colour, hair, tail, size) VALUES (?,?,?,?,?,?,?,?,?)", animal)
+    conn.commit()
 
 
 def main():
-    animals_list = download_animals_from_website()  # set_img_as_wallpaper(img_path)
-    list_of_animals = list_to_animals(animals_list)
-    list_to_db()
+    animals_list=download_animals_from_website()  # set_img_as_wallpaper(img_path)
+    animals_clean_list=list_to_dict(animals_list)
+    list_to_db(animals_clean_list)
 
 if __name__ == "__main__":
     main()
