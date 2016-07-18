@@ -4,6 +4,7 @@ import datetime
 import os
 from html.parser import HTMLParser
 import sqlite3
+from selenium import webdriver
 
 
 class HTMLTableParser(HTMLParser):
@@ -72,15 +73,32 @@ class HTMLTableParser(HTMLParser):
             self._current_table = []
 
 
-def download_animals_from_website():
-    dog_shelter_site = "http://municipium.cm-evora.pt/Canil/Adotar.aspx"
-    # get website content
-    req = urllib.request.Request(url=dog_shelter_site)
-    f = urllib.request.urlopen(req)
-    xhtml = f.read().decode('utf-8')
+def selenium_saves_website_source_code():
+    website_url = "http://municipium.cm-evora.pt/Canil/Adotar.aspx"
+    driver = webdriver.Firefox()
+    driver.get(website_url)
+    driver.implicitly_wait(2)
+    #gets page source and downloads table with dogs names
+    download_animals_from_website(driver.page_source)
+    #gets page links to click
+    links_with_js = driver.find_elements_by_tag_name('a')
+    links_with_js[-2].click()  # goto page 2 and repeat process
+    #gets page source and downloads table with dogs names
+    download_animals_from_website(driver.page_source)
+    #gets page links to click
+    links_with_js = driver.find_elements_by_tag_name('a')
+    links_with_js[-1].click()  # goto page 2 and repeat process
+    #gets page source and downloads table with dogs names
+    download_animals_from_website(driver.page_source)
+    #closes browser
+    driver.close()
+
+
+def download_animals_from_website(source_code):
+    xhtml = source_code
     p = HTMLTableParser()
     p.feed(xhtml)
-    return p.tables[1][1:-1]
+    list_to_dict(p.tables[1][1:-1])
 
 
 def list_to_dict(animals_list):
@@ -90,7 +108,7 @@ def list_to_dict(animals_list):
         gender = 'M' if animal[5] == 'M' else 'F'
         animals_clean_list.append((animal[0], animal[1].lower(), animal[3].partition(' / ')[2].lower(), mixed_race, gender, animal[
                                   6].partition(' / ')[2].lower(), animal[7].partition(' / ')[2].lower(), animal[8].partition(' / ')[2].lower(), animal[9].partition(' / ')[2].lower()))
-    return animals_clean_list
+    list_to_db(animals_clean_list)
 
 
 def list_to_db(animals_clean_list):
@@ -102,14 +120,14 @@ def list_to_db(animals_clean_list):
         if cursor.fetchone():
             print('dog with the same name already exists')
         else:
-            cursor.execute("INSERT INTO dogs_dog (name, number_register, race, mixed_race, sex, colour, hair, tail, size) VALUES (?,?,?,?,?,?,?,?,?)", animal)
+            cursor.execute(
+                "INSERT INTO dogs_dog (name, number_register, race, mixed_race, sex, colour, hair, tail, size) VALUES (?,?,?,?,?,?,?,?,?)", animal)
     conn.commit()
 
 
 def main():
-    animals_list=download_animals_from_website()  # set_img_as_wallpaper(img_path)
-    animals_clean_list=list_to_dict(animals_list)
-    list_to_db(animals_clean_list)
+    selenium_saves_website_source_code()
+    print('Done biatch!')
 
 if __name__ == "__main__":
     main()
