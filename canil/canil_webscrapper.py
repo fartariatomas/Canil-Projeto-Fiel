@@ -2,9 +2,21 @@
 import urllib.request
 import datetime
 import os
+import sys
 from html.parser import HTMLParser
 import sqlite3
 from selenium import webdriver
+import pyautogui
+import time
+
+
+def liftoff():
+    print('Three, two, one, liftoff!')
+
+
+def done():
+    print('it\'s over kid')
+    sys.exit(0)
 
 
 class HTMLTableParser(HTMLParser):
@@ -78,20 +90,56 @@ def selenium_saves_website_source_code():
     driver = webdriver.Firefox()
     driver.get(website_url)
     driver.implicitly_wait(2)
-    #gets page source and downloads table with dogs names
-    download_animals_from_website(driver.page_source)
-    #gets page links to click
+    # gets page source and downloads table with dogs names
+    # download_animals_from_website(driver.page_source)
+    download_animals_photos(driver)
+    # gets page links to click
     links_with_js = driver.find_elements_by_tag_name('a')
     links_with_js[-2].click()  # goto page 2 and repeat process
-    #gets page source and downloads table with dogs names
+    # gets page source and downloads table with dogs names
     download_animals_from_website(driver.page_source)
-    #gets page links to click
+    download_animals_photos(driver)
+    # gets page links to click
     links_with_js = driver.find_elements_by_tag_name('a')
     links_with_js[-1].click()  # goto page 2 and repeat process
-    #gets page source and downloads table with dogs names
+    # gets page source and downloads table with dogs names
     download_animals_from_website(driver.page_source)
-    #closes browser
+    download_animals_photos(driver)
+    # closes browser
     driver.close()
+
+
+def download_animals_photos(driver):
+    for j in range(10):
+        pyautogui.scroll(-100)
+        time.sleep(0.1)
+        name_pos_x, name_pos_y = 15, 365 + 38 * j
+        pyautogui.moveTo(name_pos_x, name_pos_y)
+        if j == 2: done()
+        pyautogui.doubleClick()
+        pyautogui.hotkey('ctrl', 'c')
+        button_pos_x, button_pos_y = 1250, name_pos_y
+        pyautogui.moveTo(button_pos_x, button_pos_y)
+        pyautogui.click()
+        time.sleep(0.5)  # wait 1 sec for page to refresh with photo
+        pyautogui.scroll(-500)
+        time.sleep(0.1)
+        photo_pos_x, photo_pos_y = 50, 700
+        pyautogui.moveTo(photo_pos_x, photo_pos_y)
+        pyautogui.click(button='right')
+        time.sleep(0.2)
+        pyautogui.moveTo(photo_pos_x + 10, photo_pos_y - 115)
+        pyautogui.click()  # save image as
+        time.sleep(0.2)
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(0.1)
+        pyautogui.press('enter')
+        time.sleep(0.5)
+        try:
+            driver.refresh()
+        except:
+            pyautogui.press('enter')
+            time.sleep(1)
 
 
 def download_animals_from_website(source_code):
@@ -126,6 +174,7 @@ def list_to_db(animals_clean_list):
 
 
 def main():
+    liftoff()
     selenium_saves_website_source_code()
     print('Done biatch!')
 
