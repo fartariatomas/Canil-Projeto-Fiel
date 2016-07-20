@@ -8,12 +8,12 @@ class Dog(models.Model):
     race = models.CharField(max_length=30, null=True, blank=True)
     mixed_race = models.BooleanField()
     sex = models.CharField(max_length=10, choices=(
-        ('Macho', 'Macho'), ('Fêmea', 'Fêmea')))
+        ('Macho', 'Macho'), ('Femea', 'Femea')))
     colour = models.CharField(max_length=100, null=True, blank=True)
     hair = models.CharField(max_length=100, null=True, blank=True)
     tail = models.CharField(max_length=100, null=True, blank=True)
     size = models.CharField(max_length=20, choices=(
-        ('Pequeno Porte', 'Pequeno Porte'), ('Médio Porte', 'Médio Porte'), ('Grande Porte', 'Grande Porte'), ('Muito Grande Porte', 'Muito Grande Porte')))
+        ('Pequeno Porte', 'Pequeno Porte'), ('Medio Porte', 'Medio Porte'), ('Grande Porte', 'Grande Porte'), ('Muito Grande Porte', 'Muito Grande Porte')))
     profile_pic = models.FileField(blank=True)
     #age = models.IntegerField()
     #day_in = models.DateField()
