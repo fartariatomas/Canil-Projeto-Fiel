@@ -11,14 +11,18 @@
             <div class="col-sm-4 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <img src="{{ dog.profile_pic.url }}">
                         <h2>{{ dog.name }}</h2>
-                        <h4>{{ dog.sex }}</h4>
+                        <h4>Género: {{ dog.sex }}</h4>
                         {% if dog.mixed_race %}
-                            <h4> Undefined race</h4>
+                            <h4> Raça indefinida</h4>
                         {% else %}
-                            <h4> Race is {{ dog.race }}</h4>
+                            <h4> Raça: {{ dog.race }}</h4>
                         {% endif %}
-                        <h4>This {{ dog.size }} dog has {{ dog.colour }} {{ dog.hair }} hair and a {{ dog.tail }} tail.</h4>
+                        <h4>Porte: {{ dog.size }}</h4>
+                        <h4>Pêlo: {{ dog.colour }}</h4>
+                        <h4>Cores: {{ dog.hair }}</h4>
+                        <h4>Cauda: {{ dog.tail }}</h4>
                     </div>
                 </div>
             </div>
@@ -27,10 +31,16 @@
         <div class="col-sm-8 col-md-9">
             <div class="col-sm-8 col-md-9">
                 <div class="panel panel-default">
-                    {% for photo in dog.photo_set.all %}
-                        <center><img src="{{ photo.photo_img.url }}" class="img-responsive"></center>
-                        <br>
-                    {% endfor %}
+                    {% if dog.photo_set.all %}
+                        {% for photo in dog.photo_set.all %}
+                            <center><img src="{{ photo.photo_img.url }}" class="img-responsive">
+                            <p>{{ photo.label }}</p>
+                            </center>
+                            <br>
+                        {% endfor %}
+                    {% else %}
+                        <center><h2>Não há mais fotos deste cão :-(</h2></center>
+                    {% endif %}
                 </div>
             </div>
         </div>

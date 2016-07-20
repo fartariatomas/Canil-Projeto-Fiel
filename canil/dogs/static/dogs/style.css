@@ -17,9 +17,3 @@ body{
     border-color: none;
     filter: none;
 }
-
-#wall_img{
-    width: 180px;
-    height: 120px;
-    object-fit: fill;
-}

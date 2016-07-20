@@ -3,30 +3,21 @@
 {% block dogs_active %}active{% endblock %}
 
 {% block body %}
-<div class="dogs-container container-fluid">
-
-    <!-- Dogs -->
-    {% if all_dogs %}
-        <div class="row">
-            {% for dog in all_dogs %}
-                <div class="col-xs-3">
-                    <div class="thumbnail">
-                        <a href="{% url 'dogs:detail' dog.id %}">
-                            <img src="{{ dog.photo_set.first.photo_img_thumbnail.url }}" class="img-rounded">
-                        </a>
-                        <div class="caption">
-                            <center><h2>{{ dog.name }}</h2></center>
-                        </div>
-                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Dogs -->
+        {% for dog in all_dogs %}
+            <div class="col-sm-4 col-lg-3">
+                <div class="thumbnail">
+                    <a href="{% url 'dogs:detail' dog.id %}">
+                        <center>
+                            <h2>{{ dog.name }}</h2>
+                        </center>
+                        <img src="{{ dog.profile_pic.url }}" class="img-thumbnail" style="width:auto;height:300px;">
+                    </a>
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="col-xs-12">
-            <br>
-            <p>There are no dogs in the shelter :-)</p>
-        </div>
-    {% endif %}
-
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

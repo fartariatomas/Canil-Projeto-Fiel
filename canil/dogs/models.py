@@ -1,21 +1,20 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
 
 
 class Dog(models.Model):
     name = models.CharField(max_length=100)
     number_register = models.CharField(max_length=10)
-    race = models.CharField(max_length=30)
+    race = models.CharField(max_length=30, null=True, blank=True)
     mixed_race = models.BooleanField()
     sex = models.CharField(max_length=10, choices=(
-        ('M', 'Macho'), ('F', 'Fêmea')))
+        ('Macho', 'Macho'), ('Fêmea', 'Fêmea')))
     colour = models.CharField(max_length=100, null=True, blank=True)
     hair = models.CharField(max_length=100, null=True, blank=True)
     tail = models.CharField(max_length=100, null=True, blank=True)
     size = models.CharField(max_length=20, choices=(
-        ('small', 'Small'), ('medium', 'Medium'), ('large', 'Large'), ('extra large', 'Very Large')))
+        ('Pequeno Porte', 'Pequeno Porte'), ('Médio Porte', 'Médio Porte'), ('Grande Porte', 'Grande Porte'), ('Muito Grande Porte', 'Muito Grande Porte')))
+    profile_pic = models.FileField(blank=True)
     #age = models.IntegerField()
     #day_in = models.DateField()
 
@@ -29,10 +28,7 @@ class Dog(models.Model):
 class Photo(models.Model):
     album_name = models.ForeignKey(Dog, on_delete=models.CASCADE)
     photo_img = models.ImageField(null=True, blank=True)
-    photo_img_thumbnail = ImageSpecField(source='photo_img',
-                                         processors=[ResizeToFill(400, 300)],
-                                         format='JPEG',
-                                         options={'quality': 60})
+    label = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.album_name.name
