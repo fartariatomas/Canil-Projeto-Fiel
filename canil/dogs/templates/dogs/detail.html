@@ -39,7 +39,9 @@
                             <br>
                         {% endfor %}
                     {% else %}
-                        <center><h2>Não há mais fotos deste cão :-(</h2></center>
+                        <center><h2>Não há mais fotos deste cão :-(</h2>
+                                <h3><a href="{% url 'dogs:photo-add' %}">Queres adicionar alguma?</a></h3>
+                        </center>
                     {% endif %}
                 </div>
             </div>

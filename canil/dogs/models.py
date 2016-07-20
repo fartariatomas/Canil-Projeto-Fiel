@@ -14,7 +14,7 @@ class Dog(models.Model):
     tail = models.CharField(max_length=100, null=True, blank=True)
     size = models.CharField(max_length=20, choices=(
         ('Pequeno Porte', 'Pequeno Porte'), ('Medio Porte', 'Medio Porte'), ('Grande Porte', 'Grande Porte'), ('Muito Grande Porte', 'Muito Grande Porte')))
-    profile_pic = models.FileField(blank=True)
+    profile_pic = models.FileField(upload_to='', blank=True)
     #age = models.IntegerField()
     #day_in = models.DateField()
 
@@ -27,7 +27,7 @@ class Dog(models.Model):
 
 class Photo(models.Model):
     album_name = models.ForeignKey(Dog, on_delete=models.CASCADE)
-    photo_img = models.ImageField(null=True, blank=True)
+    photo_img = models.ImageField(upload_to='', null=True, blank=True)
     label = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
