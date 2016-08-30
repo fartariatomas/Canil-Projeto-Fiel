@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^admin/', admin.site.urls),
-    url(r'^add/$', views.PhotoCreate.as_view(), name='photo-add'),
+    url(r'^add/(?P<pk>[0-9]+)/$', views.PhotoCreate.as_view(), name='photo-add'),
 ]

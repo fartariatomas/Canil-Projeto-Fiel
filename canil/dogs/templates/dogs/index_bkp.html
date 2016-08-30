@@ -14,7 +14,7 @@
                     <div class="thumbnail">
 
                         <!-- Album logo -->
-                        
+
                         <a href="{% url 'dogs:detail' dog.id %}">
                             <center><img src="{{ dog.photo_set.last.image_file.thumbnail.url }}" class="img-responsive" align="middle"></center>
                         </a>

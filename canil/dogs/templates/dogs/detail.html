@@ -6,7 +6,7 @@
     <div class="container-fluid photo-container">
 
         <div class="row">
-            
+
             <!-- Left Dog Info -->
             <div class="col-sm-4 col-md-3">
                 <div class="panel panel-default">
@@ -39,10 +39,10 @@
                             <br>
                         {% endfor %}
                     {% else %}
-                        <center><h2>Não há mais fotos deste cão :-(</h2>
-                                <h3><a href="{% url 'dogs:photo-add' %}">Queres adicionar alguma?</a></h3>
-                        </center>
+                        <center><h2>Não há mais fotos deste cão :-(</h2></center>
                     {% endif %}
+                        <center><h3><a href="{% url 'dogs:photo-add' dog.id%}">Queres adicionar alguma foto?</a></h3>
+                        </center>
                 </div>
             </div>
         </div>
@@ -52,5 +52,5 @@
 </div>
 
 {% endblock %}
-    
-                            
+
+
